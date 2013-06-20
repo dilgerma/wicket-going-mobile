@@ -2,6 +2,7 @@ package de.effectivetrainings;
 
 import org.apache.wicket.bootstrap.Bootstrap;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.filter.HeaderResponseContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.internal.HtmlHeaderContainer;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
@@ -12,6 +13,7 @@ public class HomePage extends WebPage {
 
 	public HomePage(final PageParameters parameters) {
 		super(parameters);
+        add(new HeaderResponseContainer("footerJS",WicketApplication.FOOTER_BUCKET));
     }
 
     @Override

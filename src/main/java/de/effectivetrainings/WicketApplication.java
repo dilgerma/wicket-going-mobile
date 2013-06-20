@@ -2,6 +2,9 @@ package de.effectivetrainings;
 
 import org.apache.wicket.ajax.WicketEventJQueryResourceReference;
 import org.apache.wicket.bootstrap.Bootstrap;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.filter.JavaScriptFilteredIntoFooterHeaderResponse;
+import org.apache.wicket.markup.html.IHeaderResponseDecorator;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.resource.JavaScriptPackageResource;
@@ -14,8 +17,10 @@ import org.apache.wicket.resource.JQueryResourceReference;
  * @see de.effectivetrainings.Start#main(String[])
  */
 public class WicketApplication extends WebApplication
-{    	
-	/**
+{
+    public static final String FOOTER_BUCKET = "footerBucket";
+
+    /**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
 	@Override
@@ -43,5 +48,13 @@ public class WicketApplication extends WebApplication
             new JavaScriptResourceReference(HomePage.class, "file5.js"),
             new JavaScriptResourceReference(HomePage.class, "file6.js")
         );
+        setHeaderResponseDecorator(new IHeaderResponseDecorator() {
+            @Override
+            public IHeaderResponse decorate(IHeaderResponse response) {
+                return new JavaScriptFilteredIntoFooterHeaderResponse(response, WicketApplication.FOOTER_BUCKET);
+            }
+        });
 	}
+
+
 }
